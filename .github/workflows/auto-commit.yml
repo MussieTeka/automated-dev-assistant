@@ -1,0 +1,29 @@
+name: Automated Commit
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # This schedules the action to run every hour. You can adjust this to your preference.
+  workflow_dispatch:  # This allows you to trigger the action manually from GitHub Actions UI.
+
+jobs:
+  commit_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Automated Dev Assistant"
+          git config --global user.email "automated@devassistant.com"
+
+      - name: Add changes
+        run: |
+          git add .
+          git commit -m "Automated commit: $(date)" || echo "No changes to commit"
+
+      - name: Push changes
+        run: |
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
