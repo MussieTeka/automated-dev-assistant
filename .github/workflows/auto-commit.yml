@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - test-automation  # Trigger on test-automation branch as well
   workflow_dispatch:  # Manual trigger
 
 jobs:
@@ -21,8 +20,8 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config --global user.name "Automated Dev Assistant"
-          git config --global user.email "automated@devassistant.com"
+          git config --global user.name "mussieteka"
+          git config --global user.email "mussiekahasay12@gmail.com"
 
       - name: Add changes
         run: |
@@ -31,6 +30,6 @@ jobs:
 
       - name: Push changes
         run: |
-          git push origin ${{ github.ref }}  # Push to the branch that triggered the workflow
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
