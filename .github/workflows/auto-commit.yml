@@ -2,12 +2,18 @@ name: Automated Commit
 
 on:
   schedule:
-    - cron: '0 * * * *'  # This schedules the action to run every hour. You can adjust this to your preference.
-  workflow_dispatch:  # This allows you to trigger the action manually from GitHub Actions UI.
+    - cron: '0 0 * * *'  # Example: every day at midnight (UTC)
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Manual trigger
 
 jobs:
   commit_changes:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Grants write access to the repository contents
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
